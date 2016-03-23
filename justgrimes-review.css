@@ -78,7 +78,10 @@ form:not(.disabled) > div:hover label:hover ~ label:after {
 input[type='radio'] { display: none; }
 
 input[type='submit'] {
+    -webkit-appearance: button;
+    cursor: pointer;
     border: none;
+    border-radius: 0;
     background: #197CB2;
     color: white;
     font-family: inherit;
@@ -101,4 +104,4 @@ input[type='submit']:disabled {
     background: #E5E4E3;
 }
 
-td, th { padding: 0 1em; }
+td, th { padding: 0 .5em; }
