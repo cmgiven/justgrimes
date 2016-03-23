@@ -1,0 +1,39 @@
+<head>
+  <title>Rate @justgrimes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <h1>Please rate <a href="https://twitter.com/justgrimes/">@justgrimes</a></h1>
+  <form id="rating" {{ anyChecked }}>
+      <div>
+          <label for="one-grimes"><span>1</span></label>
+          <input type="radio" name="rating" value="1" id="one-grimes" {{ checked 1 }} />
+          <label for="two-grimes"><span>2</span></label>
+          <input type="radio" name="rating" value="2" id="two-grimes" {{ checked 2 }} />
+          <label for="three-grimes"><span>3</span></label>
+          <input type="radio" name="rating" value="3" id="three-grimes" {{ checked 3 }} />
+          <label for="four-grimes"><span>4</span></label>
+          <input type="radio" name="rating" value="4" id="four-grimes" {{ checked 4 }} />
+          <label for="five-grimes"><span>5</span></label>
+          <input type="radio" name="rating" value="5" id="five-grimes" {{ checked 5 }} />
+      </div>
+      <input type="submit" id="submit" value="Submit" disabled />
+  </form>
+  <h2>Historical Ratings</h2>
+  <table>
+    <thead>
+        <tr><th>Date</th><th># of ratings</th><th>Avg. rating</th></tr>
+    </thead>
+    <tbody>
+        {{ #each days }}
+            <tr>
+                <td>{{ date }}</td>
+                <td>{{ ratingCount }}</td>
+                <td>{{ averageRating }}</td>
+            </tr>
+        {{ /each }}
+    </tbody>
+  </table>
+</body>

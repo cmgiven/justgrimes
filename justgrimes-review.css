@@ -1,0 +1,104 @@
+body {
+    background: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+
+    text-align: center;
+}
+
+h1, h2, th {
+    font-weight: 300;
+}
+
+a { color: inherit; text-decoration: none; }
+
+table {
+    margin: 0 auto;
+    text-align: left;
+}
+
+label {
+    display: block;
+    position: relative;
+    width: 20%;
+    padding-bottom: 20%;
+    float: left;
+    background: url('images/background.svg') 100% 100%;
+}
+
+label span {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+label:after {
+    content: "";
+    display: none;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: url('images/justgrimes.svg') 100% 100%;
+    animation-duration: .6s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+label.spin:after {
+    animation-name: spin;
+}
+
+form.active label:after {
+    display: block;
+}
+form.active input[type='radio']:checked ~ label:after {
+    display: none;
+}
+
+form:not(.disabled) > div:hover label:after {
+    display: block !important;
+}
+form:not(.disabled) > div:hover label:hover ~ label:after {
+    display: none !important;
+}
+
+@keyframes spin {
+    75% {
+        transform: rotate(375deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+input[type='radio'] { display: none; }
+
+input[type='submit'] {
+    border: none;
+    background: #197CB2;
+    color: white;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 2em;
+    text-transform: uppercase;
+    padding: .25em 1em;
+    margin: 1em 0;
+}
+
+input[type='submit']:hover, input[type='submit']:focus {
+    background: #0C6CA0;
+}
+
+input[type='submit']:active {
+    background: #773311;
+}
+
+input[type='submit']:disabled {
+    background: #E5E4E3;
+}
+
+td, th { padding: 0 1em; }
