@@ -47,7 +47,7 @@ Meteor.methods({
   addRating: function (rating) {
     if (rating > 0 && rating <= 5) {
       var d = new Date();
-      var today = [d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate()].join('-');
+      var today = [d.getUTCFullYear(), zeropad(d.getUTCMonth() + 1, 2), zeropad(d.getUTCDate(), 2)].join('-');
       Days.upsert(
         { date: today },
         {
@@ -60,3 +60,8 @@ Meteor.methods({
     }
   }
 });
+
+function zeropad(str, width) {
+  str = str + '';
+  return str.length >= width ? str : new Array(width - str.length + 1).join('0') + str;
+}
