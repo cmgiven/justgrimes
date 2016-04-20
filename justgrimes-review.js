@@ -23,7 +23,8 @@ if (Meteor.isClient) {
           input.disabled = true;
           if (input.checked) {
             var rating = parseInt(input.value, 10);
-            Meteor.call('addRating', rating);
+            var offset = TimeSync.serverOffset();
+            Meteor.call('addRating', rating, offset);
 
             [].slice.call(e.target.getElementsByTagName('label'))
               .forEach(function (label, j) {
@@ -44,10 +45,9 @@ if (Meteor.isClient) {
 }
 
 Meteor.methods({
-  addRating: function (rating) {
+  addRating: function (rating, offset) {
     if (rating > 0 && rating <= 5) {
-      var d = new Date();
-      var today = [d.getUTCFullYear(), zeropad(d.getUTCMonth() + 1, 2), zeropad(d.getUTCDate(), 2)].join('-');
+      var today = moment().add(offset, 'milliseconds').format('YYYY-MM-DD');
       Days.upsert(
         { date: today },
         {
