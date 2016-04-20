@@ -45,7 +45,7 @@ if (Meteor.isClient) {
 
 Meteor.methods({
   addRating: function (rating) {
-    if (rating > 0 && rating <= 5) {
+    if (rating >= 1 && rating <= 5) {
       var d = new Date();
       var today = [d.getUTCFullYear(), zeropad(d.getUTCMonth() + 1, 2), zeropad(d.getUTCDate(), 2)].join('-');
       Days.upsert(
