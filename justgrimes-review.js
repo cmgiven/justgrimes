@@ -33,7 +33,7 @@ if (Meteor.isClient) {
                     label.className = 'spin';
                   }, j * 50);
                 }
-              })
+              });
           }
         });
     },
@@ -41,12 +41,12 @@ if (Meteor.isClient) {
       document.getElementById('rating').className = 'active';
       document.getElementById('submit').disabled = false;
     }
-  })
+  });
 }
 
 Meteor.methods({
   addRating: function (rating, offset) {
-    if (rating > 0 && rating <= 5) {
+    if ((rating > 0 && rating <= 5) && ((-12 * 60 * 60 * 1000) <= offset && offset <= (14 * 60 * 60 * 1000))) {
       var today = moment().add(offset, 'milliseconds').format('YYYY-MM-DD');
       Days.upsert(
         { date: today },
