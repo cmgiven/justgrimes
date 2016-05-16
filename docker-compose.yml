@@ -1,10 +1,8 @@
 meteor:
   image: ulexus/meteor
   environment:
-    ROOT_URL: http://justgrimes.review
+    ROOT_URL: https://justgrimes.review
     MONGO_URL: mongodb://db:27017/justgrimes-review
-  ports:
-    - "80:80"
   links:
     - db
   volumes:
@@ -15,16 +13,16 @@ db:
   volumes:
     - /srv/db:/data/db
   restart: always
-# proxy:
-#   image: danieldent/nginx-ssl-proxy
-#   environment:
-#     UPSTREAM: meteor
-#     SERVERNAME: justgrimes.review
-#   ports:
-#     - "80:80"
-#     - "443:443"
-#   links:
-#     - meteor
-#   volumes:
-#     - /srv/certs:/certs
-#   restart: always
+proxy:
+  image: danieldent/nginx-ssl-proxy
+  environment:
+    UPSTREAM: meteor
+    SERVERNAME: justgrimes.review
+  ports:
+    - "80:80"
+    - "443:443"
+  links:
+    - meteor
+  volumes:
+    - /srv/certs:/certs
+  restart: always
