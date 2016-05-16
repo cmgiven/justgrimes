@@ -23,7 +23,8 @@ if (Meteor.isClient) {
           input.disabled = true;
           if (input.checked) {
             var rating = parseInt(input.value, 10);
-            Meteor.call('addRating', rating);
+            var offset = TimeSync.serverOffset();
+            Meteor.call('addRating', rating, offset);
 
             [].slice.call(e.target.getElementsByTagName('label'))
               .forEach(function (label, j) {
@@ -32,7 +33,7 @@ if (Meteor.isClient) {
                     label.className = 'spin';
                   }, j * 50);
                 }
-              })
+              });
           }
         });
     },
@@ -40,14 +41,13 @@ if (Meteor.isClient) {
       document.getElementById('rating').className = 'active';
       document.getElementById('submit').disabled = false;
     }
-  })
+  });
 }
 
 Meteor.methods({
-  addRating: function (rating) {
-    if (rating >= 1 && rating <= 5) {
-      var d = new Date();
-      var today = [d.getUTCFullYear(), zeropad(d.getUTCMonth() + 1, 2), zeropad(d.getUTCDate(), 2)].join('-');
+  addRating: function (rating, offset) {
+    if (rating >= 1 && rating <= 5 && -12 * 60 * 60 * 1000 <= offset && offset <= 14 * 60 * 60 * 1000) {
+      var today = moment().add(offset, 'milliseconds').format('YYYY-MM-DD');
       Days.upsert(
         { date: today },
         {
@@ -60,8 +60,3 @@ Meteor.methods({
     }
   }
 });
-
-function zeropad(str, width) {
-  str = str + '';
-  return str.length >= width ? str : new Array(width - str.length + 1).join('0') + str;
-}
