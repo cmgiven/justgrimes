@@ -23,8 +23,7 @@ if (Meteor.isClient) {
           input.disabled = true;
           if (input.checked) {
             var rating = parseInt(input.value, 10);
-            var offset = TimeSync.serverOffset();
-            Meteor.call('addRating', rating, offset);
+            Meteor.call('addRating', rating);
 
             [].slice.call(e.target.getElementsByTagName('label'))
               .forEach(function (label, j) {
@@ -45,9 +44,9 @@ if (Meteor.isClient) {
 }
 
 Meteor.methods({
-  addRating: function (rating, offset) {
-    if (rating >= 1 && rating <= 5 && -12 * 60 * 60 * 1000 <= offset && offset <= 14 * 60 * 60 * 1000) {
-      var today = moment().add(offset, 'milliseconds').format('YYYY-MM-DD');
+  addRating: function (rating) {
+    if (rating >= 1 && rating <= 5) {
+      var today = moment().tz('America/New_York').format('YYYY-MM-DD');
       Days.upsert(
         { date: today },
         {
