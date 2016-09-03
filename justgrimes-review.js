@@ -43,6 +43,43 @@ if (Meteor.isClient) {
   });
 }
 
+if (Meteor.isServer) {
+  var API = new Restivus();
+
+  API.addRoute('rate/:rating', {
+    post: function() {
+      Meteor.call('addRating', parseInt(this.urlParams.rating));
+      return {status: 'success'};
+    }
+  });
+
+  API.addRoute('ratings', {
+    get: function() {
+      return Days.find({}, {
+        fields: {
+          '_id': 0
+        }
+      }).fetch();
+    }
+  });
+
+  API.addRoute('ratings/today', {
+    get: function() {
+      var today = moment().tz('America/New_York').format('YYYY-MM-DD');
+      var result = Days.findOne({date: today}, {
+        fields: {
+          '_id': 0
+        }
+      });
+      if (result) {
+        return result
+      } else {
+        return {status: 'no ratings yet for today'}
+      }
+    }
+  });
+}
+
 Meteor.methods({
   addRating: function (rating) {
     if (rating >= 1 && rating <= 5) {
