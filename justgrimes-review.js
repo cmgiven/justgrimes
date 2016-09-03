@@ -61,7 +61,18 @@ if (Meteor.isServer) {
         }
       }).fetch();
     }
-  })
+  });
+
+  API.addRoute('ratings/today', {
+    get: function() {
+      var today = moment().tz('America/New_York').format('YYYY-MM-DD');
+      return Days.findOne({date: today}, {
+        fields: {
+          '_id': 0
+        }
+      });
+    }
+  });
 }
 
 Meteor.methods({
