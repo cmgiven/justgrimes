@@ -66,11 +66,16 @@ if (Meteor.isServer) {
   API.addRoute('ratings/today', {
     get: function() {
       var today = moment().tz('America/New_York').format('YYYY-MM-DD');
-      return Days.findOne({date: today}, {
+      var result = Days.findOne({date: today}, {
         fields: {
           '_id': 0
         }
       });
+      if (result) {
+        return result
+      } else {
+        return {status: 'no ratings yet for today'}
+      }
     }
   });
 }
