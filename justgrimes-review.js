@@ -43,6 +43,17 @@ if (Meteor.isClient) {
   });
 }
 
+if (Meteor.isServer) {
+  var API = new Restivus();
+
+  API.addRoute('rate/:rating', {
+    post: function() {
+      Meteor.call('addRating', parseInt(this.urlParams.rating));
+      return {status: 'success'};
+    }
+  })
+}
+
 Meteor.methods({
   addRating: function (rating) {
     if (rating >= 1 && rating <= 5) {
