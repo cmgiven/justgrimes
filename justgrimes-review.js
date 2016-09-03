@@ -51,6 +51,16 @@ if (Meteor.isServer) {
       Meteor.call('addRating', parseInt(this.urlParams.rating));
       return {status: 'success'};
     }
+  });
+
+  API.addRoute('ratings', {
+    get: function() {
+      return Days.find({}, {
+        fields: {
+          '_id': 0
+        }
+      }).fetch();
+    }
   })
 }
 
