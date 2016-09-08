@@ -47,37 +47,61 @@ if (Meteor.isServer) {
   var API = new Restivus();
 
   API.addRoute('rate/:rating', {
-    post: function() {
-      Meteor.call('addRating', parseInt(this.urlParams.rating));
-      return {status: 'success'};
+    post: function () {
+      if (Meteor.call('addRating', parseRating(this.urlParams.rating))) {
+        return { status: 'success' };
+      } else {
+        return { statusCode: 400, body: {
+          status: 'error',
+          message: 'Bad request: justgrimes must be rated with an whole number between 1 and 5'
+        } };
+      }
     }
   });
 
   API.addRoute('ratings', {
-    get: function() {
-      return Days.find({}, {
-        fields: {
-          '_id': 0
-        }
-      }).fetch();
+    get: function () {
+      return Days.find({}, { fields: { '_id': 0 } }).fetch();
     }
   });
 
   API.addRoute('ratings/today', {
-    get: function() {
+    get: function () {
       var today = moment().tz('America/New_York').format('YYYY-MM-DD');
-      var result = Days.findOne({date: today}, {
-        fields: {
-          '_id': 0
-        }
-      });
-      if (result) {
-        return result
+
+      return responseForDate(today)
+    }
+  });
+
+  API.addRoute('ratings/:date', {
+    get: function () {
+      var date = this.urlParams.date
+      if (date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
+        return responseForDate(date)
       } else {
-        return {status: 'no ratings yet for today'}
+        return { statusCode: 400, body: {
+          status: 'error',
+          message: 'Bad request: date must be in the format YYYY-MM-DD'
+        } };
       }
     }
   });
+
+  function parseRating(rating) {
+    if (rating.match(/^[1-5]$/)) {
+      return parseInt(rating, 10)
+    }
+  }
+
+  function responseForDate(date) {
+      var result = Days.findOne({ date: date }, { fields: { '_id': 0 } });
+
+      if (result) {
+        return result
+      } else {
+        return { statusCode: 205, body: {} }
+      }
+  }
 }
 
 Meteor.methods({
@@ -93,6 +117,7 @@ Meteor.methods({
           }
         }
       );
+      return true
     }
   }
 });
