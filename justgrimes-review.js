@@ -35,6 +35,20 @@ if (Meteor.isClient) {
               });
           }
         });
+
+      setTimeout(function () {
+        [].slice.call(document.getElementsByTagName('input'))
+          .forEach(function (input) {
+            input.disabled = false;
+            input.checked = false;
+          });
+        [].slice.call(e.target.getElementsByTagName('label'))
+          .forEach(function (label) {
+            label.className = ''
+          });
+        document.getElementById('rating').className = '';
+        document.getElementById('submit').disabled = true;
+      }, 4000);
     },
     'change #rating input[type="radio"]': function () {
       document.getElementById('rating').className = 'active';
