@@ -110,6 +110,19 @@ if (Meteor.isServer) {
     if (rating.match(/^[1-5]$/)) {
       return parseInt(rating, 10)
     }
+
+    switch (rating) {
+    case 'one':
+      return 1;
+    case 'two':
+      return 2;
+    case 'three':
+      return 3;
+    case 'four':
+      return 4;
+    case 'five':
+      return 5;
+    }
   }
 
   function responseForDate(date) {
