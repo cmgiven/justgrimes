@@ -4,7 +4,7 @@
 
 ### /api/rate/:rating
 
-Submit a rating of @justgrimes. `rating` must be a whole number between 1 and 5.
+Submit a rating of @justgrimes. `rating` must be a whole number between 1 and 5 (both numerals and spelled-out English numbers are accepted).
 
 Status Code | Description
 ----------- | -----------
