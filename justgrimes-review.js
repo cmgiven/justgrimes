@@ -84,6 +84,23 @@ if (Meteor.isServer) {
     }
   });
 
+  API.addRoute('ratings/csv', {
+    get: function () {
+      var json = Days.find({}, { fields: { '_id': 0 } }).fetch();
+      var keys = Object.keys(json[0]);
+      var csv = keys.join(',') + '\n';
+
+      json.forEach(function (row) {
+        csv += keys.map(function (k) { return row[k]; }).join(',') + '\n';
+      });
+
+      return {
+        headers: { 'Content-Type': 'text/plain' },
+        body: csv
+      };
+    }
+  });
+
   API.addRoute('ratings/today', {
     get: function () {
       var today = moment().tz('America/New_York').format('YYYY-MM-DD');
