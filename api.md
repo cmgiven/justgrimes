@@ -40,7 +40,7 @@ Status Code | Description
 
 ### /api/ratings/:date
 
-Ratings for an historical date in JSON format. 'date' must be in the format YYYY-MM-DD.
+Ratings for an historical date in JSON format. `date` must be in the format YYYY-MM-DD.
 
 Status Code | Description
 ----------- | -----------
