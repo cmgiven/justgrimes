@@ -1,8 +1,9 @@
 meteor:
-  image: ulexus/meteor
+  image: ulexus/meteor:legacy
   environment:
     ROOT_URL: https://justgrimes.review
     MONGO_URL: mongodb://db:27017/justgrimes-review
+    RELEASE: 1.2.1
   links:
     - db
   volumes:
