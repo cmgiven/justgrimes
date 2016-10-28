@@ -50,6 +50,11 @@ if (Meteor.isClient) {
         document.getElementById('submit').disabled = true;
       }, 4000);
     },
+    'touchend #rating label': function (e) {
+      document.getElementById(e.target.attributes.for.value).checked = true;
+      document.getElementById('rating').className = 'active';
+      document.getElementById('submit').disabled = false;
+    },
     'change #rating input[type="radio"]': function () {
       document.getElementById('rating').className = 'active';
       document.getElementById('submit').disabled = false;
