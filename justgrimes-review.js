@@ -128,17 +128,19 @@ if (Meteor.isServer) {
       return parseInt(rating, 10)
     }
 
-    switch (rating) {
-    case 'one':
-      return 1;
-    case 'two':
-      return 2;
-    case 'three':
-      return 3;
-    case 'four':
-      return 4;
-    case 'five':
-      return 5;
+    if (rating.match(/^one|two|three|four|five$/i)) {
+      switch (rating.toLowerCase()) {
+      case 'one':
+        return 1;
+      case 'two':
+        return 2;
+      case 'three':
+        return 3;
+      case 'four':
+        return 4;
+      case 'five':
+        return 5;
+      }
     }
   }
 
