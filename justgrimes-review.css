@@ -10,7 +10,14 @@ h1, h2, th {
     font-weight: 300;
 }
 
+h2 {
+    font-size: 1em;
+    margin: 0;
+}
+
 a { color: inherit; text-decoration: none; }
+
+#chart { margin-top: 2em; }
 
 table {
     margin: 0 auto;
@@ -75,7 +82,17 @@ form:not(.disabled) > div:hover label:hover ~ label:after {
     }
 }
 
-input[type='radio'] { display: none; }
+input[type='radio'] {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: circle(1% at 1% 1%);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    width: 1px;
+}
 
 input[type='submit'] {
     -webkit-appearance: button;
@@ -104,6 +121,24 @@ input[type='submit']:disabled {
 }
 
 td, th { padding: 0 .5em; }
+
+svg text {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.x.axis path, .y.axis path { display: none; }
+.x.axis line, .y.axis line { stroke: #E5E4E3; stroke-width: 2px; }
+.y.axis text { font-size: 2em; fill: #707070; }
+
+.graph { fill: none; stroke: #707070; stroke-width: 1.5px; }
+
+.marker text {
+    text-anchor: middle;
+    font-size: .75em;
+    fill: #fff;
+}
+
+.badge path { fill: #d53030}
 
 footer { font-size: .8125em; }
 footer a { color: #197CB2; }

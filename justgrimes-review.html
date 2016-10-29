@@ -6,6 +6,7 @@
 
 <body>
   <h1>Please rate <a href="https://twitter.com/justgrimes/">@justgrimes</a></h1>
+
   <form id="rating" {{ anyChecked }}>
       <div>
           <label for="one-grimes"><span>1</span></label>
@@ -21,21 +22,10 @@
       </div>
       <input type="submit" id="submit" value="Submit" disabled />
   </form>
-  <h2>Historical Ratings</h2>
-  <table>
-    <thead>
-        <tr><th>Date</th><th># of ratings</th><th>Avg. rating</th></tr>
-    </thead>
-    <tbody>
-        {{ #each days }}
-            <tr>
-                <td>{{ date }}</td>
-                <td>{{ ratingCount }}</td>
-                <td>{{ averageRating }}</td>
-            </tr>
-        {{ /each }}
-    </tbody>
-  </table>
+
+  <div id="chart">
+    <h2>Average rating over time</h2>
+  </div>
 
   <footer>
     <ul>
