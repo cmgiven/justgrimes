@@ -4,7 +4,6 @@ Days = new Mongo.Collection('days');
 
 if (Meteor.isClient) {
   import d3 from 'd3';
-  import KonamiKeyboard from 'konami-keyboard';
 
   Session.setDefault('rating', 0);
 
@@ -181,10 +180,6 @@ if (Meteor.isClient) {
 
     return result;
   }
-
-  new KonamiKeyboard(function() {
-    window.location.href = '/images/justgrimes_blackmirror.jpg';
-  });
 
   Template.body.helpers({
     rating: function () { return Session.get('rating'); },
