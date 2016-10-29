@@ -51,9 +51,12 @@ if (Meteor.isClient) {
       }, 4000);
     },
     'touchend #rating label': function (e) {
-      document.getElementById(e.target.attributes.for.value).checked = true;
-      document.getElementById('rating').className = 'active';
-      document.getElementById('submit').disabled = false;
+      var radio = document.getElementById(e.target.attributes.for.value);
+      if (!radio.disabled) {
+        radio.checked = true;
+        document.getElementById('rating').className = 'active';
+        document.getElementById('submit').disabled = false;
+      }
     },
     'change #rating input[type="radio"]': function () {
       document.getElementById('rating').className = 'active';
