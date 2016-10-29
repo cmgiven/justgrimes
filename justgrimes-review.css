@@ -87,7 +87,6 @@ input[type='submit'] {
     font-family: inherit;
     font-weight: inherit;
     font-size: 2em;
-    text-transform: uppercase;
     padding: .25em 1em;
     margin: 1em 0;
 }
@@ -107,7 +106,8 @@ input[type='submit']:disabled {
 td, th { padding: 0 .5em; }
 
 footer { font-size: .8125em; }
-footer a { color: #49b; }
+footer a { color: #197CB2; }
+footer a:hover, footer a:focus { color: #0C6CA0; }
 
 footer ul {
     padding: 0;
