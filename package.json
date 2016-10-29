@@ -1,0 +1,13 @@
+{
+  "description": "Rate your Justin Grimes experience",
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmgiven/justgrimes"
+  },
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "d3": "^4.3.0",
+    "moment-timezone": "^0.5.7"
+  }
+}

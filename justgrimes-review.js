@@ -1,3 +1,5 @@
+var moment = require('moment-timezone')
+
 Days = new Mongo.Collection('days');
 
 if (Meteor.isClient) {

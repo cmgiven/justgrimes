@@ -18,5 +18,4 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 autopublish             # Publish all data to the clients (for prototyping)
-aldeed:moment-timezone  # Timezone adjustments
-nimble:restivus
+nimble:restivus         # REST API
