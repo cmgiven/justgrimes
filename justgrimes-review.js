@@ -3,7 +3,13 @@ import moment from 'moment-timezone';
 Days = new Mongo.Collection('days');
 
 if (Meteor.isClient) {
+  import Konami from 'konami-js';
+
   Session.setDefault('rating', 0);
+
+  new Konami(function() {
+    window.location.href = '/images/justgrimes_blackmirror.jpg';
+  });
 
   Template.body.helpers({
     rating: function () { return Session.get('rating'); },
