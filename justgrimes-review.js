@@ -79,7 +79,7 @@ if (Meteor.isServer) {
 
   Js2Xml.prototype.pluralisation = function (name) {
     var map = {
-      "reviews": "day"
+      "ratings": "day"
     };
 
     return map[name] || "item";
@@ -124,7 +124,7 @@ if (Meteor.isServer) {
   API.addRoute('ratings/xml', {
     get: function () {
       var json = Days.find({}, { fields: { '_id': 0 } }).fetch();
-      var xml = new Js2Xml("reviews", json).toString();
+      var xml = new Js2Xml("ratings", json).toString();
 
       return {
         headers: { 'Content-Type': 'text/xml' },
