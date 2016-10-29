@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "d3": "~4.3.0",
-    "js2xml": "~1.0.4",
     "konami-js": "0.0.2",
     "moment-timezone": "~0.5.7"
   }

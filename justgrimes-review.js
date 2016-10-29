@@ -251,16 +251,7 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-  import { Js2Xml } from 'js2xml';
   var API = new Restivus();
-
-  Js2Xml.prototype.pluralisation = function (name) {
-    var map = {
-      "ratings": "day"
-    };
-
-    return map[name] || "item";
-  }
 
   API.addRoute('rate/:rating', {
     post: function () {
@@ -301,7 +292,20 @@ if (Meteor.isServer) {
   API.addRoute('ratings/xml', {
     get: function () {
       var json = Days.find({}, { fields: { '_id': 0 } }).fetch();
-      var xml = new Js2Xml("ratings", json).toString();
+      var keys = Object.keys(json[0]);
+      var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<ratings>\n';
+
+      json.forEach(function (row) {
+        xml += '\t<day>\n'
+
+        keys.forEach(function (key) {
+          xml += '\t\t<' + key + '>' + row[key] + '</' + key + '>\n'
+        })
+
+        xml += '\t</day>\n'
+      });
+
+      xml += '</ratings>'
 
       return {
         headers: { 'Content-Type': 'text/xml' },
