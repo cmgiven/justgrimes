@@ -13,6 +13,8 @@ Status Code | Description
 
 ## GET
 
+Ratings are returned by day with three values: `date` (YYYY-MM-DD), `points`, and `ratingCount`. The average rating can be determined by dividing `points` by `ratingCount`, the total number of ratings received.
+
 ### /api/ratings
 
 All historical ratings in JSON format.
@@ -24,6 +26,14 @@ Status Code | Description
 ### /api/ratings/csv
 
 All historical ratings in CSV format.
+
+Status Code | Description
+----------- | -----------
+200         | Success
+
+### /api/ratings/xml
+
+All historical ratings in XML format.
 
 Status Code | Description
 ----------- | -----------

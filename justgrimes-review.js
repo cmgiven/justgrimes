@@ -1,4 +1,4 @@
-var moment = require('moment-timezone')
+import moment from 'moment-timezone';
 
 Days = new Mongo.Collection('days');
 
@@ -68,7 +68,16 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+  import { Js2Xml } from 'js2xml';
   var API = new Restivus();
+
+  Js2Xml.prototype.pluralisation = function (name) {
+    var map = {
+      "reviews": "day"
+    };
+
+    return map[name] || "item";
+  }
 
   API.addRoute('rate/:rating', {
     post: function () {
@@ -102,6 +111,18 @@ if (Meteor.isServer) {
       return {
         headers: { 'Content-Type': 'text/plain' },
         body: csv
+      };
+    }
+  });
+
+  API.addRoute('ratings/xml', {
+    get: function () {
+      var json = Days.find({}, { fields: { '_id': 0 } }).fetch();
+      var xml = new Js2Xml("reviews", json).toString();
+
+      return {
+        headers: { 'Content-Type': 'text/xml' },
+        body: xml
       };
     }
   });
