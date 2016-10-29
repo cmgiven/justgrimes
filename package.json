@@ -6,7 +6,6 @@
     "url": "https://github.com/cmgiven/justgrimes"
   },
   "dependencies": {
-    "bcrypt": "~0.8.7",
     "d3": "~4.3.0",
     "js2xml": "~1.0.4",
     "konami-js": "0.0.2",
