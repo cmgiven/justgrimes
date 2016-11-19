@@ -7,14 +7,17 @@ if (Meteor.isClient) {
 
   Session.setDefault('rating', 0);
 
-  // As ratings are streamed in, we initially prevent chart animation.
-  var animateChart = false;
-  setTimeout(function () { animateChart = true; }, 2000)
+  var timeout;
 
   Days.find().observe({
-    added: chart,
-    changed: chart
+    added: debouncedChart,
+    changed: debouncedChart
   });
+
+  function debouncedChart() {
+    clearTimeout(timeout);
+    timeout = setTimeout(chart, 80);
+  }
 
   function chart() {
     var today = moment().tz('America/New_York').startOf('day');
@@ -86,7 +89,6 @@ if (Meteor.isClient) {
     svg.select('.graph')
       .datum(data)
       .transition()
-      .duration(animateChart ? 250 : 0)
       .attr('d', line);
 
     var markers = svg.selectAll('.marker')
