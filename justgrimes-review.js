@@ -44,7 +44,13 @@ if (Meteor.isClient) {
 
     var xAxis = d3.axisBottom()
       .scale(x)
-      .ticks(d3.timeDay.every(7))
+      .tickValues([
+        today,
+        today.clone().subtract(1, 'week'),
+        today.clone().subtract(2, 'weeks'),
+        today.clone().subtract(3, 'weeks'),
+        fourWeeksAgo
+      ])
       .tickFormat(d3.timeFormat('%b %d'));
 
     var yAxis = d3.axisLeft()
