@@ -263,7 +263,7 @@ if (Meteor.isServer) {
       } else {
         return { statusCode: 400, body: {
           status: 'error',
-          message: 'Bad request: justgrimes must be rated with an whole number between 1 and 5'
+          message: 'Bad request: justgrimes must be rated with a whole number between 1 and 5'
         } };
       }
     }
