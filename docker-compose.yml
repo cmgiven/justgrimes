@@ -15,10 +15,12 @@ db:
     - /srv/db:/data/db
   restart: always
 proxy:
-  image: danieldent/nginx-ssl-proxy
+  image: annixa/docker-nginx-letsencrypt-proxy
   environment:
-    UPSTREAM: meteor
-    SERVERNAME: justgrimes.review
+    PROXY_DEST: http://meteor/
+    LE_DOMAIN: justgrimes.review
+    LE_EMAIL: info@justgrimes.review
+    SLACK_NOTIFICATIONS_INFRA_URL: "${SLACK_WEBHOOK_URL}"
   ports:
     - "80:80"
     - "443:443"
