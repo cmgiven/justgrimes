@@ -1,0 +1,9 @@
+label {
+    background: url('images/horse_background.png') !important;
+    background-size: contain !important;
+}
+
+label:after {
+    background: url('images/horse.png')!important;
+    background-size: contain !important;
+}

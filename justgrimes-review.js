@@ -251,6 +251,10 @@ if (Meteor.isClient) {
       document.getElementById('submit').disabled = false;
     }
   });
+
+  if (/.+\.horse/.test(window.top.location.host)) {
+    document.write('<link rel="stylesheet" type="text/css" href="horse.css" />');
+  }
 }
 
 if (Meteor.isServer) {

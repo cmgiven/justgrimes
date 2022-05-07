@@ -1,31 +1,54 @@
-meteor:
-  image: ulexus/meteor:legacy
-  environment:
-    ROOT_URL: https://justgrimes.review
-    MONGO_URL: mongodb://db:27017/justgrimes-review
-    RELEASE: 1.3.5.1
-  links:
-    - db
-  volumes:
-    - .:/src/app
-  restart: always
-db:
-  image: mongo:3.0.2
-  volumes:
-    - /srv/db:/data/db
-  restart: always
-proxy:
-  image: annixa/docker-nginx-letsencrypt-proxy
-  environment:
-    PROXY_DEST: http://meteor/
-    LE_DOMAIN: justgrimes.review
-    LE_EMAIL: info@justgrimes.review
-    SLACK_NOTIFICATIONS_INFRA_URL: "${SLACK_WEBHOOK_URL}"
-  ports:
-    - "80:80"
-    - "443:443"
-  links:
-    - meteor
-  volumes:
-    - /srv/certs:/certs
-  restart: always
+version: '2'
+
+services:
+  meteor:
+    image: ulexus/meteor:legacy
+    environment:
+      - ROOT_URL=https://justgrimes.review
+      - MONGO_URL=mongodb://db:27017/justgrimes-review
+      - RELEASE=1.3.5.1
+      - VIRTUAL_HOST=justgrimes.review,justgrimes.horse
+      - LETSENCRYPT_HOST=justgrimes.review,justgrimes.horse
+      - LETSENCRYPT_SINGLE_DOMAIN_CERTS=true
+    links:
+      - db
+    volumes:
+      - .:/src/app
+    restart: always
+  db:
+    image: mongo:3.0.2
+    volumes:
+      - /srv/db:/data/db
+    restart: always
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    network_mode: bridge
+  acme-companion:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-acme
+    environment:
+      - DEFAULT_EMAIL=info@justgrimes.review
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    network_mode: bridge
+
+volumes:
+  conf:
+  vhost:
+  html:
+  certs:
+  acme:
