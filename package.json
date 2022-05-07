@@ -1,13 +1,15 @@
 {
-  "description": "Rate your Justin Grimes experience",
-  "license": "CC0-1.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cmgiven/justgrimes"
+  "name": "justgrimes-review-v2",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
     "d3": "~4.3.0",
-    "meteor-node-stubs": "^0.2.3",
+    "jquery": "^3.5.1",
+    "meteor-node-stubs": "^1.0.1",
     "moment-timezone": "~0.5.7"
   }
 }
