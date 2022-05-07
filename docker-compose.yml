@@ -2,11 +2,13 @@ version: '2'
 
 services:
   meteor:
-    image: ulexus/meteor
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       - ROOT_URL=https://justgrimes.review
       - MONGO_URL=mongodb://db:27017/justgrimes-review
-      - RELEASE=1.3.5.1
+      - PORT=3000
       - VIRTUAL_HOST=justgrimes.review,justgrimes.horse
       - LETSENCRYPT_HOST=justgrimes.review,justgrimes.horse
       - LETSENCRYPT_SINGLE_DOMAIN_CERTS=true
@@ -16,7 +18,7 @@ services:
       - .:/src/app
     restart: always
   db:
-    image: mongo:3.0.2
+    image: mongo:3.6
     volumes:
       - /srv/db:/data/db
     restart: always
