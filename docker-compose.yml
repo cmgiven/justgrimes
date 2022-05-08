@@ -14,6 +14,8 @@ services:
       - LETSENCRYPT_SINGLE_DOMAIN_CERTS=true
     links:
       - db
+    expose:
+      - "3000"
     volumes:
       - .:/src/app
     restart: always
@@ -23,8 +25,10 @@ services:
       - /srv/db:/data/db
     restart: always
   nginx-proxy:
-    image: nginxproxy/nginx-proxy
+    image: nginxproxy/nginx-proxy:alpine
     container_name: nginx-proxy
+    environment:
+      - DEBUG=true
     ports:
       - "80:80"
       - "443:443"
@@ -34,7 +38,6 @@ services:
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-    network_mode: bridge
   acme-companion:
     image: nginxproxy/acme-companion
     container_name: nginx-proxy-acme
@@ -46,11 +49,9 @@ services:
       - certs:/etc/nginx/certs:rw
       - acme:/etc/acme.sh
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    network_mode: bridge
 
 volumes:
   conf:
   vhost:
   html:
   certs:
-  acme:

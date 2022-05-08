@@ -32,8 +32,6 @@ COPY --from=0 $APP_BUNDLE_FOLDER/bundle $APP_BUNDLE_FOLDER/bundle/
 RUN bash $SCRIPTS_FOLDER/build-meteor-npm-dependencies.sh
 
 # Start app
-EXPOSE $PORT
-
 ENTRYPOINT ["/docker/entrypoint.sh"]
 
 CMD ["node", "main.js"]
